@@ -9,7 +9,6 @@ import { fetchInvoicesPages } from '@/app/lib/data';
 // import TotalPages from './TotalPages';
 
 
-export const revalidate = 60;
 export default async function Page(props: {
     searchParams?: Promise<{
         query?: string;
