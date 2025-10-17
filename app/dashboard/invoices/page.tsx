@@ -1,6 +1,3 @@
-export const dynamic = 'force-dynamic';
-
-
 import Pagination from '@/app/ui/invoices/pagination';
 import Search from '@/app/ui/search';
 import Table from '@/app/ui/invoices/table';
@@ -35,7 +32,9 @@ export default async function Page(props: {
                 <Table query={query} currentPage={currentPage} />
             </Suspense>
             <div className="mt-5 flex w-full justify-center">
-                <Pagination totalPages={totalPages} />
+                <Suspense fallback={<p>Loading...</p>}>
+                    <Pagination totalPages={totalPages} />
+                </Suspense>
             </div>
         </div>
     );
