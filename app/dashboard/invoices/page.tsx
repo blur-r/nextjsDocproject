@@ -1,4 +1,4 @@
-import Pagination from '@/app/ui/invoices/pagination';
+// import Pagination from '@/app/ui/invoices/pagination';
 import Search from '@/app/ui/search';
 import Table from '@/app/ui/invoices/table';
 import { CreateInvoice } from '@/app/ui/invoices/buttons';
@@ -6,6 +6,7 @@ import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { fetchInvoicesPages } from '@/app/lib/data';
+import TotalPages from './TotalPages';
 
 
 export default async function Page(props: {
@@ -32,8 +33,11 @@ export default async function Page(props: {
                 <Table query={query} currentPage={currentPage} />
             </Suspense>
             <div className="mt-5 flex w-full justify-center">
-                <Suspense fallback={<p>Loading...</p>}>
+                {/* <Suspense fallback={<p>Loading...</p>}>
                     <Pagination totalPages={totalPages} />
+                </Suspense> */}
+                <Suspense fallback={<p>Loading...</p>}>
+                    <TotalPages query={query} />
                 </Suspense>
             </div>
         </div>
