@@ -1,10 +1,33 @@
+// import Form from '@/app/ui/invoices/create-form';
+// import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
+// import { fetchCustomers } from '@/app/lib/data';
+
+// export default async function Page() {
+//     const customers = await fetchCustomers();
+
+//     return (
+//         <main>
+//             <Breadcrumbs
+//                 breadcrumbs={[
+//                     { label: 'Invoices', href: '/dashboard/invoices' },
+//                     {
+//                         label: 'Create Invoice',
+//                         href: '/dashboard/invoices/create',
+//                         active: true,
+//                     },
+//                 ]}
+//             />
+//             <Form customers={customers} />
+//         </main>
+//     );
+// }
+
 import Form from '@/app/ui/invoices/create-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 import { fetchCustomers } from '@/app/lib/data';
+import { Suspense } from 'react';
 
-export default async function Page() {
-    const customers = await fetchCustomers();
-
+export default function Page() {
     return (
         <main>
             <Breadcrumbs
@@ -17,7 +40,14 @@ export default async function Page() {
                     },
                 ]}
             />
-            <Form customers={customers} />
+            <Suspense fallback={<p>Loading form...</p>}>
+                <DynamicForm />
+            </Suspense>
         </main>
     );
+}
+
+async function DynamicForm() {
+    const customers = await fetchCustomers();
+    return <Form customers={customers} />;
 }
