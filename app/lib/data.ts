@@ -1,4 +1,5 @@
 import postgres from 'postgres';
+import { cache } from 'react';
 import {
   CustomerField,
   CustomersTableType,
@@ -121,7 +122,7 @@ export async function fetchFilteredInvoices(
   }
 }
 
-export async function fetchInvoicesPages(query: string) {
+export const fetchInvoicesPages = cache(async (query: string) => {
   try {
     const data = await sql`SELECT COUNT(*)
     FROM invoices
@@ -140,7 +141,7 @@ export async function fetchInvoicesPages(query: string) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch total number of invoices.');
   }
-}
+})
 
 export async function fetchInvoiceById(id: string) {
   try {
